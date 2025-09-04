@@ -1,0 +1,50 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+import pickle
+from sklearn.metrics import confusion_matrix, accuracy_score
+from wordcloud import WordCloud
+
+# Load dataset
+df = pd.read_csv('data/spam.csv', encoding='latin-1')[['v1', 'v2']]
+df.columns = ['label', 'message']
+df['label_num'] = df.label.map({'ham': 0, 'spam': 1})
+
+# Load vectorizer and model
+with open('tfidf_vectorizer.pkl', 'rb') as f:
+    tfidf = pickle.load(f)
+
+with open('spam_model.pkl', 'rb') as f:
+    model = pickle.load(f)
+
+# Transform messages
+X_tfidf = tfidf.transform(df['message'])
+y = df['label_num']
+y_pred = model.predict(X_tfidf)
+
+# Accuracy
+print("Model Accuracy:", accuracy_score(y, y_pred))
+
+# Confusion Matrix
+cm = confusion_matrix(y, y_pred)
+plt.figure(figsize=(5, 4))
+sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', xticklabels=['Ham', 'Spam'], yticklabels=['Ham', 'Spam'])
+plt.xlabel('Predicted')
+plt.ylabel('Actual')
+plt.title('Confusion Matrix')
+plt.show()
+
+# Word Clouds
+spam_words = ' '.join(df[df['label_num'] == 1]['message'])
+spam_cloud = WordCloud(width=600, height=400, background_color='white').generate(spam_words)
+plt.imshow(spam_cloud, interpolation='bilinear')
+plt.axis('off')
+plt.title('Spam Word Cloud')
+plt.show()
+
+ham_words = ' '.join(df[df['label_num'] == 0]['message'])
+ham_cloud = WordCloud(width=600, height=400, background_color='white').generate(ham_words)
+plt.imshow(ham_cloud, interpolation='bilinear')
+plt.axis('off')
+plt.title('Ham Word Cloud')
+plt.show()
