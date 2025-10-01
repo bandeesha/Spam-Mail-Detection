@@ -15,13 +15,13 @@
 
 ##  Overview
 
-<code>❯An intelligent email classification system that uses NLP and machine learning to automatically detect and filter spam emails with high accuracy.</code>
+<code>An intelligent email classification system that uses NLP and machine learning to automatically detect and filter spam emails with high accuracy.</code>
 
 ---
 
 ##  Features
 
-<code>❯-Automated Spam Detection – Accurately classifies emails into spam or non-spam categories.
+<code>-Automated Spam Detection – Accurately classifies emails into spam or non-spam categories.
 -NLP-Based Processing – Uses text preprocessing, tokenization, and vectorization for linguistic feature extraction.
 -TF-IDF Representation – Captures term importance to enhance classification accuracy.
 -Cross-Validation Optimization – Ensures reliable model performance across different datasets.
@@ -88,6 +88,8 @@ python3 spam_detector.py
 
 ##  Acknowledgments
 
-- List any resources, contributors, inspiration, etc. here.
+A special thanks to all the developers and contributors of the open-source libraries used in this project, including pandas, matplotlib, seaborn, scikit-learn, and wordcloud.
 
----
+Their work made it possible to build a robust, visual, and accurate email classification system.
+
+Made with ❤️ by @bandeesha
